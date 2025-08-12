@@ -40,4 +40,4 @@ jobs:
       env:
         KUBECONFIG: kubeconfig.yaml
       run: |
-        kubectl apply -f k8s-manifests/lugx-frontend-deployment.yaml
+        kubectl apply -f k8s-manifests/frontend-deployment.yaml
