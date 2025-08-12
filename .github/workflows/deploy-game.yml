@@ -28,11 +28,12 @@ jobs:
         docker build -t ${{ secrets.DOCKER_USERNAME }}/game-service:latest ./game-service
         docker push ${{ secrets.DOCKER_USERNAME }}/game-service:latest
 
-    - name: Set up kubectl
+    - name: Set up kubeconfig from secret
       run: |
         echo "${{ secrets.KUBECONFIG_DATA }}" | base64 -d > kubeconfig.yaml
-        export KUBECONFIG=kubeconfig.yaml
 
     - name: Deploy to EKS
+      env:
+        KUBECONFIG: kubeconfig.yaml
       run: |
         kubectl apply -f k8s-manifests/game-deployment.yaml
